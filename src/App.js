@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  const [input, setInput] = useState("")
+  const [tasks, setTasks] = useState( [] )
+const App = () => {
+  return(
+      <div>
+      <h1>my todo list</h1>
+      <TaskList tasks={tasks} setTasks={setTasks}/>
+      <InputDisplay input={input} setInput={setInput} tasks={tasks} setTasks={setTasks} />
+      </div>
+  )
 }
 
-export default App;
+const TaskList = ({ tasks }) => {
+
+  const deleteHandler = (index) => {
+      const newTasks = [...tasks]
+      newTasks.splice(index, 1)
+  }
+  
+  return (
+      <div>
+          {tasks.map((task, index) => {
+              return (
+              <>               
+                <button className="remove" onClick={ () => deleteHandler(index)}>delete</button>
+                <p>{task}</p>
+              </>
+              )
+          })}
+      </div>
+  )
+}
+
+const InputDisplay = (props) => {
+
+const addTaskHandler = () => {
+
+  const newTasks = [...props.tasks]
+  newTasks.push(props.input)
+  props.setTasks(newTasks)
+  props.setInput("")
+}
+
+  return(
+   <div>
+      <input type="text" onChange={(event) => props.setInput(event.target.value)}/>
+      <button onClick={addTaskHandler}>add task</button>
+   </div>
+  )
+}
+}
+
+export default App
