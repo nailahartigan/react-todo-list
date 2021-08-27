@@ -3,21 +3,22 @@ import { useState } from "react"
 const App = () => {
   const [input, setInput] = useState("")
   const [tasks, setTasks] = useState( [] )
-const App = () => {
   return(
       <div>
-      <h1>my todo list</h1>
+      <h1 className="todo">To do list</h1>
       <TaskList tasks={tasks} setTasks={setTasks}/>
       <InputDisplay input={input} setInput={setInput} tasks={tasks} setTasks={setTasks} />
       </div>
   )
 }
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, setTasks }) => {
 
   const deleteHandler = (index) => {
       const newTasks = [...tasks]
       newTasks.splice(index, 1)
+      setTasks(newTasks)
+      
   }
   
   return (
@@ -47,10 +48,10 @@ const addTaskHandler = () => {
   return(
    <div>
       <input type="text" onChange={(event) => props.setInput(event.target.value)}/>
-      <button onClick={addTaskHandler}>add task</button>
+      <button onClick={addTaskHandler}>submit task</button>
    </div>
   )
 }
-}
+
 
 export default App
